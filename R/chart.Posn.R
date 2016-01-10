@@ -11,7 +11,7 @@
 #' @export
 chart.Posn <- function(Portfolio, Symbol, Dates = NULL, ...,TA=NULL)
 { # @author Peter Carl, Brian Peterson
-    if(!is.portfolio(Portfolio) {
+    if(!is.portfolio(Portfolio)) {
         pname<-Portfolio
         Portfolio<-getPortfolio(pname)
     }
