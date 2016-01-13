@@ -11,7 +11,7 @@
 #' @export
 chart.Posn <- function(Portfolio, Symbol, Dates = NULL, ...,TA=NULL)
 { # @author Peter Carl, Brian Peterson
-    if(!is.portfolio(Portfolio)) {
+    if(!inherits(Portfolio, "portfolio")) {
         pname<-Portfolio
         Portfolio<-getPortfolio(pname)
     }
@@ -40,6 +40,7 @@ chart.Posn <- function(Portfolio, Symbol, Dates = NULL, ...,TA=NULL)
     tzero = xts(0,order.by=index(Prices[1,]))
     if(is.null(Dates)) Dates<-paste(first(index(Prices)),last(index(Prices)),sep='::')
 
+    browser()
     #scope the data by Dates
     Portfolio$symbols[[Symbol]]$txn<-Portfolio$symbols[[Symbol]]$txn[Dates]
     Portfolio$symbols[[Symbol]]$posPL<-Portfolio$symbols[[Symbol]]$posPL[Dates]
