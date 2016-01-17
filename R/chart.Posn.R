@@ -40,7 +40,7 @@ chart.Posn <- function(Portfolio, Symbol, Dates = NULL, ...,TA=NULL)
     tzero = xts(0,order.by=index(Prices[1,]))
     if(is.null(Dates)) Dates<-paste(first(index(Prices)),last(index(Prices)),sep='::')
 
-    browser()
+    # browser()
     #scope the data by Dates
     Portfolio$symbols[[Symbol]]$txn<-Portfolio$symbols[[Symbol]]$txn[Dates]
     Portfolio$symbols[[Symbol]]$posPL<-Portfolio$symbols[[Symbol]]$posPL[Dates]
