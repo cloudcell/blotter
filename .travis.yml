@@ -3,3 +3,9 @@
 language: r
 #warnings_are_errors: true
 sudo: required
+
+before_script:   
+  - Rscript -e 'install.packages("covr", repos="http://cran.rstudio.com")'
+
+after_success:
+  - Rscript -e 'library(covr);codecov()'  
