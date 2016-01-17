@@ -96,7 +96,7 @@
 #' Buy and hold return
 #' 
 #' Josh has suggested adding \%-return based stats too
-tradeStats <- function(Portfolios, Symbols ,use=c('txns','trades'), tradeDef='flat.to.flat',inclZeroDays=FALSE)
+tradeStats <- function(Portfolios, Symbols ,use=c('txns','trades'), tradeDef='flat.to.flat',inclZeroDays=FALSE, Dates=NULL)
 {
     ret <- NULL
     use <- use[1] #use the first(default) value only if user hasn't specified
@@ -112,7 +112,59 @@ tradeStats <- function(Portfolios, Symbols ,use=c('txns','trades'), tradeDef='fl
         for (symbol in symbols){
             txn   <- Portfolio$symbols[[symbol]]$txn
             posPL <- Portfolio$symbols[[symbol]]$posPL
-            posPL <- posPL[-1,]
+            posPL <- posPL[-1,] # removes "init. date" from calculations
+
+            #---proposed changes-START-OF-SECTION----------------------------- -
+            smmr <- Portfolio$symbols
+            #---proposed extension-END-OF-SECTION----------------------------- -
+            
+            #---proposed changes-START-OF-SECTION----------------------------- -
+            # Comments: 
+            # * while there is a 'TODO' for implementing a similar 
+            #   'filter' in the getPortfolio function, I propose to develop
+            #   such a filter in tradeStats() until all the nuances of
+            #   proper performance attribution to time periods are clarified.   
+            #   Developing date subsetting on portfolio level at this point
+            #   would be mixing two tasks into one.
+            #
+            # * Besides, if %-based statistics are to be implemented,
+            #   having data for period T-1 might be required, which will
+            #   be harder to implement if there is no straightforward access
+            #   to the period that is out of scope set by "Dates."
+            # 
+            # * getPortfolio() also returns orderbooks
+            #   a record in an orderbook may span across multiple time 
+            #   periods. Therefore, to be able to subset the object
+            #   of type 'Portfolio' one must solve the issue with 
+            #   splitting records of orderbooks.
+            # 
+            # TODO: Decide whether the output should include the scope over 
+            #       which tradeStats have been calculated 
+            #       (a field named "Scope" or "Dates")
+            
+            if(!is.null(Dates)) {
+                message("subsetting data")
+                txn   <- txn[Dates]
+                posPL <- posPL[Dates]
+                smmr  <- smmr[Dates]
+            }
+            
+            # prepare "Dates" / "Scope" for output
+            scope_min <- min(index(smmr))
+            scope_max <- max(index(smmr))
+            scope <- paste0(scope_min, "::", scope_max)
+            
+            
+            # some form of 'scope' value is needed to calculate (%) time in the market
+            # Percent.TimeInMarket -- to calculate this statistic for portfolios 
+            #     with more than one symbol, one needs a _temporary_ table similar to 
+            #     'summary' (on portfolio level) but only on the symbol level
+            # Disclaimer for the %-time-in-the-market 
+            #     the statistic assumes that symbol market data includes all 
+            #     the periods the market was active and that quotes are at 
+            #     equal time intervals
+
+            #---proposed extension-END-OF-SECTION----------------------------- -
 
             PL.gt0 <- txn$Net.Txn.Realized.PL[txn$Net.Txn.Realized.PL  > 0]
             PL.lt0 <- txn$Net.Txn.Realized.PL[txn$Net.Txn.Realized.PL  < 0]
