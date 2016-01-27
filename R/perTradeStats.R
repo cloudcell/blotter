@@ -15,7 +15,7 @@
 #' position in reporting.
 #'  
 #' @param Portfolio string identifying the portfolio
-#' @param Symbol string identifying the symbol to examin trades for. If missing, the first symbol found in the \code{Portfolio} portfolio will be used
+#' @param Symbol string identifying the symbol to examine trades for. If missing, the first symbol found in the \code{Portfolio} portfolio will be used
 #' @param includeOpenTrade whether to process only finished trades, or the last trade if it is still open, default TRUE
 #' @param tradeDef string to determine which definition of 'trade' to use. Currently "flat.to.flat" (the default) and "flat.to.reduced" are implemented.
 #' @param \dots any other passthrough parameters
