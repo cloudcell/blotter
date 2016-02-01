@@ -54,11 +54,13 @@ ls_accounts <- function()
     #' @author cloudcello
     ls(pattern=glob2rx("account.*"),pos=.blotter)
 }
-# Functions ------------------------------------------------------------------ -
-
+# ---------------------------------------------------------------------------- -
+pkg <- "blotter"
+path <- system.file(package=pkg, "/tests/unitTests")
 
 # Tests
-testsuite.blotter <- defineTestSuite("blotter", dirs = "./tests/unitTests")
+# testsuite.blotter <- defineTestSuite("blotter", dirs = "./tests/unitTests")
+testsuite.blotter <- defineTestSuite("blotter", dirs=path)
 testResult <- runTestSuite(testsuite.blotter)
 printTextProtocol(testResult)
 
