@@ -9,7 +9,7 @@ library(RUnit)
 library(quantmod)
 
 if(1) {
-    library(blotter) # this is needed to create an environment
+    # library(blotter) # this is needed to create an environment
 } else {
     #Load blotter files.  When is this necessary?
     # for (file in list.files("../R", pattern="*.R$", full.names=TRUE)) {
@@ -59,11 +59,37 @@ ls_accounts <- function()
 pkg <- "blotter"
 
 # ATTN! Remember the dot! Travis uses this path on Linux!
-path <- paste0( base::system.file(package=pkg, mustWork = TRUE), "/tests/unitTests" )
+# path <- paste0( base::system.file(package=pkg, mustWork = TRUE), "/tests/unitTests" )
+path <- paste0( base::system.file(package=pkg, mustWork = TRUE))
+
+
+pkg <- "blotter" # <-- Change to package name!
+if(Sys.getenv("RCMDCHECK") == "FALSE") {
+    ## Path to unit tests for standalone running under Makefile (not R CMD check)
+    ## PKG/tests/../inst/unitTests
+    path <- file.path(getwd(), "..", "tests", "unitTests")
+} else {
+    ## Path to unit tests for R CMD check
+    ## PKG.Rcheck/tests/../PKG/unitTests
+    path <- system.file(package=pkg, "./tests")
+}
+cat("\nRunning unit tests\n", path)
+print(list(pkg=pkg, getwd=getwd(), pathToUnitTests=path))
+
+library(package=pkg, character.only=TRUE)
+
+## If desired, load the name space to allow testing of private functions
+## if (is.element(pkg, loadedNamespaces()))
+##     attach(loadNamespace(pkg), name=paste("namespace", pkg, sep=":"), pos=3)
+##
+## or simply call PKG:::myPrivateFunction() in tests
+
 
 # Tests
 # testsuite.blotter <- defineTestSuite("blotter", dirs = "./tests/unitTests")
-testsuite.blotter <- defineTestSuite("blotter", dirs=path)
+testsuite.blotter <- defineTestSuite("blotter",
+                                     testFileRegexp=glob2rx("runit*.R") ,
+                                     dirs=path)
 testResult <- runTestSuite(testsuite.blotter)
 printTextProtocol(testResult)
 
