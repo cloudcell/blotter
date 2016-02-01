@@ -2,8 +2,7 @@
 
 # RUnit blotter port/framework by Ben McCann
 
-# Set working directory to this directory before running
-# setwd("Y:/devt/blotter/tests") -> not necessarily !!!
+# Set working directory to PACKAGE ROOT before running (not to ./tests/)
 
 # Load deps
 library(RUnit)
@@ -11,7 +10,6 @@ library(quantmod)
 
 if(1) {
     library(blotter) # this is needed to create an environment
-                     # and to load data, e.g.: "IBM"
 } else {
     #Load blotter files.  When is this necessary?
     # for (file in list.files("../R", pattern="*.R$", full.names=TRUE)) {
@@ -19,6 +17,45 @@ if(1) {
         source(file)
     }
 }
+
+# Fix as per https://stat.ethz.ch/pipermail/r-sig-finance/2012q2/010169.html
+if (!exists('.blotter')) .blotter <- new.env()
+
+# Functions ------------------------------------------------------------------ -
+
+rm_portfolios <- function(x)
+{
+    #' @author cloudcello
+    if(inherits(x, what="character")) {
+        rm(list=paste0("portfolio.",x),pos=.blotter)
+    } else {
+        stop("portfolio name(s) must be supplied")
+    }
+}
+
+rm_accounts <- function(x)
+{
+    #' @author cloudcello
+    if(inherits(x, what="character")) {
+        rm(list=paste0("account.",x),pos=.blotter)
+    } else {
+        stop("account name(s) must be supplied")
+    }
+}
+
+ls_portfolios <- function()
+{
+    #' @author cloudcello
+    ls(pattern=glob2rx("portfolio.*"),pos=.blotter)
+}
+
+ls_accounts <- function()
+{
+    #' @author cloudcello
+    ls(pattern=glob2rx("account.*"),pos=.blotter)
+}
+# Functions ------------------------------------------------------------------ -
+
 
 # Tests
 testsuite.blotter <- defineTestSuite("blotter", dirs = "./tests/unitTests")
@@ -32,9 +69,9 @@ if(0) {
 # TODO: replace with a stop or return ?
 ## unit tests will not be done if RUnit is not available
 if(require("RUnit", quietly=TRUE)) {
- 
+
   ## --- Setup ---
- 
+
   pkg <- "blotter" # <-- Change to package name!
   # if(Sys.getenv("RCMDCHECK") == "FALSE") {
     ## Path to unit tests for standalone running under Makefile (not R CMD check)
@@ -48,26 +85,26 @@ if(require("RUnit", quietly=TRUE)) {
   # }
   cat("\nRunning unit tests\n")
   print(list(pkg=pkg, getwd=getwd(), pathToUnitTests=path))
- 
+
   library(package=pkg, character.only=TRUE)
- 
+
   ## If desired, load the name space to allow testing of private functions
   ## if (is.element(pkg, loadedNamespaces()))
   ##     attach(loadNamespace(pkg), name=paste("namespace", pkg, sep=":"), pos=3)
   ##
   ## or simply call PKG:::myPrivateFunction() in tests
- 
+
   ## --- Testing ---
- 
+
   ## Define tests
   testSuite <- defineTestSuite(name=paste(pkg, "unit testing"),
                                           dirs=path)
   ## Run
   tests <- runTestSuite(testSuite)
- 
+
   ## Default report name
   pathReport <- file.path(path, "report")
- 
+
   ## Report to stdout and text files
   cat("------------------- UNIT TEST SUMMARY ---------------------\n\n")
   printTextProtocol(tests, showDetails=FALSE)
@@ -75,10 +112,10 @@ if(require("RUnit", quietly=TRUE)) {
                     fileName=paste(pathReport, "Summary.txt", sep=""))
   printTextProtocol(tests, showDetails=TRUE,
                     fileName=paste(pathReport, ".txt", sep=""))
- 
+
   ## Report to HTML file
   printHTMLProtocol(tests, fileName=paste(pathReport, ".html", sep=""))
- 
+
   ## Return stop() to cause R CMD check stop in case of
   ##  - failures i.e. FALSE to unit tests or
   ##  - errors i.e. R errors

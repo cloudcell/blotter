@@ -1,12 +1,22 @@
 # Author: Peter Carl, RUnit port by Ben McCann
 
 test.txnFees <- function() {
+
   on.exit({
     # remove objects created by unit tests
     try(rm_currencies("USD"))
     try(rm_stocks(symbols))
-    try(rm(list=c(p1,a1), pos=.blotter))
-    try(rm(IBM))
+    # try(rm(list=c(p1,a1), pos=.blotter))
+    ls_portfolios()
+    ls_accounts()
+    ls(pos=.blotter)
+
+    try(rm_portfolios(x=c("p1runitUpdatePortf")))
+    try(rm_portfolios(x=c("p2runitUpdatePortf")))
+    try(rm_accounts(x=c("a1runitUpdatePortf")))
+    try(rm_accounts(x=c("a2runitUpdatePortf")))
+
+    try(rm("IBM", pos = .GlobalEnv))
   })
 
   currency("USD")
@@ -14,7 +24,7 @@ test.txnFees <- function() {
   for (symbol in symbols){
     stock(symbol, currency="USD", multiplier=1)
   }
-  data(IBM, package="blotter")
+  data("IBM", package="blotter")
 
   ## simple portfolio with one transaction
   p1 <- initPortf(name="p1runitUpdatePortf", symbols=symbols)
