@@ -71,7 +71,7 @@ if(Sys.getenv("RCMDCHECK") == "FALSE") {
 } else {
     ## Path to unit tests for R CMD check
     ## PKG.Rcheck/tests/../PKG/unitTests
-    path <- system.file(package=pkg, "./tests")
+    path <- system.file(package=pkg, "./tests/unitTests")
 }
 cat("\nRunning unit tests\n", path)
 print(list(pkg=pkg, getwd=getwd(), pathToUnitTests=path))
