@@ -55,8 +55,11 @@ ls_accounts <- function()
     ls(pattern=glob2rx("account.*"),pos=.blotter)
 }
 # ---------------------------------------------------------------------------- -
+
 pkg <- "blotter"
-path <- system.file(package=pkg, "./tests/unitTests")
+
+# ATTN! Remember the dot! Travis uses this path on Linux!
+path <- paste0( base::system.file(package=pkg, mustWork = TRUE), "/tests/unitTests" )
 
 # Tests
 # testsuite.blotter <- defineTestSuite("blotter", dirs = "./tests/unitTests")
