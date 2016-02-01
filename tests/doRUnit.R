@@ -1,3 +1,35 @@
+# source: adopted from an old blotter unit testing file
+
+# RUnit blotter port/framework by Ben McCann
+
+# Set working directory to this directory before running
+# setwd("Y:/devt/blotter/tests") -> not necessarily !!!
+
+# Load deps
+library(RUnit)
+library(quantmod)
+
+if(1) {
+    library(blotter) # this is needed to create an environment
+                     # and to load data, e.g.: "IBM"
+} else {
+    #Load blotter files.  When is this necessary?
+    # for (file in list.files("../R", pattern="*.R$", full.names=TRUE)) {
+    for (file in list.files("./R", pattern="*.R$", full.names=TRUE)) {
+        source(file)
+    }
+}
+
+# Tests
+testsuite.blotter <- defineTestSuite("blotter", dirs = "./tests/unitTests")
+testResult <- runTestSuite(testsuite.blotter)
+printTextProtocol(testResult)
+
+
+# exit:
+
+if(0) {
+# TODO: replace with a stop or return ?
 ## unit tests will not be done if RUnit is not available
 if(require("RUnit", quietly=TRUE)) {
  
@@ -58,3 +90,6 @@ if(require("RUnit", quietly=TRUE)) {
 } else {
   warning("cannot run unit tests -- package RUnit is not available")
 }
+
+}
+
