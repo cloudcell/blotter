@@ -6,6 +6,7 @@ sudo: required
 
 r_packages:
   - covr
+  - RUnit
  
 # works just as well as via "r_packages:"
 #before_script:   
