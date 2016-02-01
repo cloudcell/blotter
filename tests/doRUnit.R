@@ -56,7 +56,7 @@ ls_accounts <- function()
 }
 # ---------------------------------------------------------------------------- -
 pkg <- "blotter"
-path <- system.file(package=pkg, "/tests/unitTests")
+path <- system.file(package=pkg, "./tests/unitTests")
 
 # Tests
 # testsuite.blotter <- defineTestSuite("blotter", dirs = "./tests/unitTests")
