@@ -1,4 +1,8 @@
 # source: adopted from an old blotter unit testing file
+#
+# see ref: http://stackoverflow.com/questions/24397034/how-do-i-refer-to-files-in-the-inst-directory-of-an-r-package-from-a-script-in?rq=1
+# comment by hadley wickham: Are you using devtools? It adds a shim so that system.file() will work in development mode. – hadley Jun 24 '14 at 23:55
+
 
 # RUnit blotter port/framework by Ben McCann
 
@@ -91,6 +95,9 @@ library(package=pkg, character.only=TRUE)
 testsuite.blotter <- defineTestSuite("blotter",
                                      testFileRegexp=glob2rx("runit*.R") ,
                                      dirs=path)
+# TODO: define 2 testsuites:
+# 1 for inst/tests/unitTests
+# 1 for tests/unitTests
 testResult <- runTestSuite(testsuite.blotter)
 printTextProtocol(testResult)
 

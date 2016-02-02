@@ -79,5 +79,5 @@ test.txnFees <- function() {
   a2 <- updateAcct(a2,'2007-01')
   a2 <- updateEndEq(a2,'2007-01')
 
-  checkEquals(getAccount(a1)$summary$End.Eq, getAccount(a2)$summary$End.Eq)
+  checkEquals(getAccount(a1)$summary$End.Eq, getAccount(a2)$summary$End.Eq + 1000) # simulate an error on Travis / codecov !!!
 }
