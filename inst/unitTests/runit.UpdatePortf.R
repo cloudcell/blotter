@@ -55,7 +55,7 @@ test.txnFees <- function() {
     try(rm_accounts(x=c("a2runitUpdatePortf")))
 
     try(rm("IBM", pos = localEnv))
-    try(rm(c("p1","p2","a1","a2"), pos = localEnv))
+    try(rm(list=c("p1","p2","a1","a2"), pos = localEnv))
   })
 
   currency("USD")
@@ -63,7 +63,10 @@ test.txnFees <- function() {
   for (symbol in symbols){
     stock(symbol, currency="USD", multiplier=1)
   }
-  data("IBM", package="blotter")
+
+  # Travis cannot find it unless it's referenced
+  # (it's global by default, but in Travis it isn't)
+  data("IBM", package="blotter", envir = localEnv)
 
   ## simple portfolio with one transaction
   p1 <- initPortf(name="p1runitUpdatePortf", symbols=symbols)
