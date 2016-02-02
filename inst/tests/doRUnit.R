@@ -61,7 +61,7 @@ pkg <- "blotter"
 
 # ATTN! Remember the dot! Travis uses this path on Linux!
 # path <- paste0( base::system.file(package=pkg, mustWork = TRUE), "/tests/unitTests" )
-path <- paste0( base::system.file(package=pkg, mustWork = TRUE))
+# path <- paste0( base::system.file(package=pkg, mustWork = TRUE))
 
 
 pkg <- "blotter" # <-- Change to package name!
@@ -72,7 +72,7 @@ if(Sys.getenv("RCMDCHECK") == "FALSE") {
 } else {
     ## Path to unit tests for R CMD check
     ## PKG.Rcheck/tests/../PKG/unitTests
-    path <- system.file(package=pkg, "./tests")
+    path <- system.file(package=pkg, "./tests/unitTests")
 }
 cat("\n===================== Running unit tests =====================\n", path)
 print(list(pkg=pkg, getwd=getwd(), pathToUnitTests=path))
