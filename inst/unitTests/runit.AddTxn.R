@@ -1,41 +1,5 @@
 # Author: Peter Carl, RUnit port by Ben McCann
 
-# Functions ------------------------------------------------------------------ -
-
-rm_portfolios <- function(x)
-{
-    #' @author cloudcello
-    if(inherits(x, what="character")) {
-        rm(list=paste0("portfolio.",x),pos=.blotter)
-    } else {
-        stop("portfolio name(s) must be supplied")
-    }
-}
-
-rm_accounts <- function(x)
-{
-    #' @author cloudcello
-    if(inherits(x, what="character")) {
-        rm(list=paste0("account.",x),pos=.blotter)
-    } else {
-        stop("account name(s) must be supplied")
-    }
-}
-
-ls_portfolios <- function()
-{
-    #' @author cloudcello
-    ls(pattern=glob2rx("portfolio.*"),pos=.blotter)
-}
-
-ls_accounts <- function()
-{
-    #' @author cloudcello
-    ls(pattern=glob2rx("account.*"),pos=.blotter)
-}
-# ---------------------------------------------------------------------------- -
-
-
 test.addTxn <- function() {
 
   on.exit({

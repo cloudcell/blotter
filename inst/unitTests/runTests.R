@@ -1,10 +1,10 @@
 # borrowed from rcppgsl
 
 # Functions ------------------------------------------------------------------ -
-# TODO: move these functions to an appropriate package
+# TODO: move these functions to an appropriate package (blotter?)
+#' @author cloudcello
 rm_portfolios <- function(x)
 {
-    #' @author cloudcello
     if(inherits(x, what="character")) {
         rm(list=paste0("portfolio.",x),pos=.blotter)
     } else {
@@ -14,7 +14,6 @@ rm_portfolios <- function(x)
 
 rm_accounts <- function(x)
 {
-    #' @author cloudcello
     if(inherits(x, what="character")) {
         rm(list=paste0("account.",x),pos=.blotter)
     } else {
@@ -24,13 +23,11 @@ rm_accounts <- function(x)
 
 ls_portfolios <- function()
 {
-    #' @author cloudcello
     ls(pattern=glob2rx("portfolio.*"),pos=.blotter)
 }
 
 ls_accounts <- function()
 {
-    #' @author cloudcello
     ls(pattern=glob2rx("account.*"),pos=.blotter)
 }
 # ---------------------------------------------------------------------------- -
