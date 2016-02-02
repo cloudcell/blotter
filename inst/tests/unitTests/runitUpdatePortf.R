@@ -53,6 +53,7 @@ test.txnFees <- function() {
     try(rm_accounts(x=c("a2runitUpdatePortf")))
 
     try(rm("IBM", pos = .GlobalEnv))
+    try(rm(c("p1","p2","a1","a2"), pos = .GlobalEnv))
   })
 
   currency("USD")
@@ -81,3 +82,5 @@ test.txnFees <- function() {
 
   checkEquals(getAccount(a1)$summary$End.Eq, getAccount(a2)$summary$End.Eq + 1000) # simulate an error on Travis / codecov !!!
 }
+
+

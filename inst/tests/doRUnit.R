@@ -76,7 +76,7 @@ if(Sys.getenv("RCMDCHECK") == "FALSE") {
 } else {
     ## Path to unit tests for R CMD check
     ## PKG.Rcheck/tests/../PKG/unitTests
-    path <- system.file(package=pkg, "./tests/unitTests")
+    path <- system.file(package=pkg, "./inst/tests/unitTests")
 }
 cat("\n===================== Running unit tests =====================\n", path)
 print(list(pkg=pkg, getwd=getwd(), pathToUnitTests=path))
@@ -90,16 +90,32 @@ library(package=pkg, character.only=TRUE)
 ## or simply call PKG:::myPrivateFunction() in tests
 
 
-# Tests
+# Tests ---------------------------------------------------------------------- -
 # testsuite.blotter <- defineTestSuite("blotter", dirs = "./tests/unitTests")
 testsuite.blotter <- defineTestSuite("blotter",
                                      testFileRegexp=glob2rx("runit*.R") ,
                                      dirs=path)
+
+testResult <- runTestSuite(testsuite.blotter)
+printTextProtocol(testResult)
+
 # TODO: define 2 testsuites:
 # 1 for inst/tests/unitTests
 # 1 for tests/unitTests
-testResult <- runTestSuite(testsuite.blotter)
-printTextProtocol(testResult)
+
+if(0) {
+    path <- system.file(package=pkg, "./inst/tests/unitTests")
+    testsuite.blotter <- defineTestSuite("blotter",
+                                         testFileRegexp=glob2rx("runit*.R") ,
+                                         dirs=path)
+    # TODO: define 2 testsuites:
+    # 1 for inst/tests/unitTests
+    # 1 for tests/unitTests
+    testResult <- runTestSuite(testsuite.blotter)
+    printTextProtocol(testResult)
+}
+
+
 
 
 # exit:
