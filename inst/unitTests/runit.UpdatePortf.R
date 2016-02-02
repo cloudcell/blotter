@@ -54,7 +54,7 @@ test.txnFees <- function() {
     try(rm_accounts(x=c("a1runitUpdatePortf")))
     try(rm_accounts(x=c("a2runitUpdatePortf")))
 
-    try(rm("IBM"), pos = localEnv)
+    try(rm("IBM", pos = localEnv))
     try(rm(c("p1","p2","a1","a2"), pos = localEnv))
   })
 
