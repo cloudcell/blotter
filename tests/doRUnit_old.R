@@ -1,3 +1,4 @@
+if(0) {
 # source: adopted from an old blotter unit testing file
 #
 # see ref: http://stackoverflow.com/questions/24397034/how-do-i-refer-to-files-in-the-inst-directory-of-an-r-package-from-a-script-in?rq=1
@@ -185,3 +186,4 @@ if(require("RUnit", quietly=TRUE)) {
 
 }
 
+}

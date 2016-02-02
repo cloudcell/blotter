@@ -1,0 +1,3 @@
+src/blotter.dll
+*.o
+*.Rhistory
