@@ -7,6 +7,7 @@
 # Load deps
 library(RUnit)
 library(quantmod)
+library(blotter)
 
 if(1) {
     # library(blotter) # this is needed to create an environment
@@ -71,9 +72,9 @@ if(Sys.getenv("RCMDCHECK") == "FALSE") {
 } else {
     ## Path to unit tests for R CMD check
     ## PKG.Rcheck/tests/../PKG/unitTests
-    path <- system.file(package=pkg, "./tests/unitTests")
+    path <- system.file(package=pkg, "./tests")
 }
-cat("\nRunning unit tests\n", path)
+cat("\n===================== Running unit tests =====================\n", path)
 print(list(pkg=pkg, getwd=getwd(), pathToUnitTests=path))
 
 library(package=pkg, character.only=TRUE)
