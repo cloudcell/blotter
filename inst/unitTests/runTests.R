@@ -1,8 +1,7 @@
-# borrowed from rcppgsl
 
-# Functions ------------------------------------------------------------------ -
-# TODO: move these functions to an appropriate package (blotter?)
-#' @author cloudcello
+
+# Cleanup Functions ---------------------------------------------------------- -
+# TODO: create these functions properly in blotter
 rm_portfolios <- function(x)
 {
     if(inherits(x, what="character")) {
@@ -32,11 +31,14 @@ ls_accounts <- function()
 }
 # ---------------------------------------------------------------------------- -
 
+############################################################################## #
+# The testing template was borrowed from RcppGSL package
+# https://github.com/eddelbuettel/rcppgsl
+# with minor modifications
+############################################################################## #
 
-
-# TODO: set this package name globally ONCE ONLY! (if that's really needed)
-# This seemingly redundant assignment to "pkg" might be done in case
-# this particular file is launched independently from doRUnit.R
+# This seemingly redundant second assignment to "pkg" in the test is
+# done in case this particular file is launched independently from doRUnit.R
 pkg <- "blotter"  # set package name here
 
 if(require("RUnit", quietly = TRUE)) {

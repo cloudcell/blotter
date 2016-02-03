@@ -1,4 +1,8 @@
-# borrowed from the package RcppGSL
+############################################################################## #
+# The testing template was borrowed from RcppGSL package
+# https://github.com/eddelbuettel/rcppgsl
+# with minor modifications
+############################################################################## #
 
 #### doRUnit.R --- Run RUnit tests
 ####------------------------------------------------------------------------

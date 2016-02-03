@@ -9,17 +9,12 @@ test.txnFees <- function() {
     try(rm_currencies("USD"))
     try(rm_stocks(symbols))
     # try(rm(list=c(p1,a1), pos=.blotter))
-    ls_portfolios()
-    ls_accounts()
-    ls(pos=.blotter)
-
+    try(rm(list=c("p1","p2","a1","a2"), pos = localEnv))
     try(rm_portfolios(x=c("p1runitUpdatePortf")))
     try(rm_portfolios(x=c("p2runitUpdatePortf")))
     try(rm_accounts(x=c("a1runitUpdatePortf")))
     try(rm_accounts(x=c("a2runitUpdatePortf")))
-
     try(rm("IBM", pos = .GlobalEnv))
-    try(rm(list=c("p1","p2","a1","a2"), pos = localEnv))
   })
 
   currency("USD")
@@ -28,7 +23,7 @@ test.txnFees <- function() {
     stock(symbol, currency="USD", multiplier=1)
   }
 
-  # into global env. by default
+  # loaded into global env. by default
   data("IBM", package="blotter")
 
   ## simple portfolio with one transaction
@@ -50,5 +45,4 @@ test.txnFees <- function() {
 
   checkEquals(getAccount(a1)$summary$End.Eq, getAccount(a2)$summary$End.Eq)
 }
-
 

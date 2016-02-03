@@ -6,15 +6,9 @@ test.addTxn <- function() {
     # remove objects created by unit tests
     try(rm_currencies("USD"))
     try(rm_stocks(symbols))
-    # try(rm(list=p, pos=.blotter))
-    try(rm(list="pName"))
-    ls(pos=.blotter)
-    # try(rm(list="portfolio.runitAddTxn",pos=.blotter)) # TODO: write rm_portfolio(x)
-    ls_portfolios()
-    ls_accounts()
     try(rm_portfolios("runitAddTxn"))
+    try(rm(list="pName"))
     try(rm("IBM", pos = .GlobalEnv))
-    # getPortfolio("runitAddTxn")
   })
 
   currency("USD")
@@ -24,7 +18,7 @@ test.addTxn <- function() {
   }
   data("IBM", package="blotter")
 
-  # Initialize a portfolio object 'p'
+  # Initialize a portfolio object 'pName'
   # Creating portfolio:
   pName <- initPortf("runitAddTxn", symbols=symbols)
 
@@ -50,4 +44,3 @@ test.addTxn <- function() {
   # summary <- calcPortfSummary(portfolio)
 }
 
-#----------------------------------------------------------------------------- -
